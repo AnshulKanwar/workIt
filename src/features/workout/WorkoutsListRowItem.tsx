@@ -32,6 +32,7 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
     paddingHorizontal: 20,
     marginVertical: 10,
+    marginHorizontal: 20,
     borderRadius: 6,
   },
   date: {
@@ -41,7 +42,7 @@ const styles = StyleSheet.create({
   },
   duration: {
     flexDirection: "row",
-    alignItems: "center"
+    alignItems: "center",
   },
   durationText: {
     marginLeft: 4,

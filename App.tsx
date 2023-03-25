@@ -1,34 +1,29 @@
-import { SafeAreaView, View, Text, StyleSheet } from "react-native";
 import { Provider } from "react-redux";
-import WorkoutsList from "./src/features/workout/WorkoutsList";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import store from "./src/store";
+import { NavigationContainer } from "@react-navigation/native";
+import Home from "./src/screens/Home";
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
     <Provider store={store}>
-      <SafeAreaView style={styles.wrapper}>
-        <View style={styles.container}>
-          <Text style={styles.header}>Your Workouts</Text>
-          <WorkoutsList />
-        </View>
-      </SafeAreaView>
+      <NavigationContainer>
+        <Stack.Navigator
+          screenOptions={{
+            headerLargeTitle: true,
+            headerTransparent: true,
+            headerBlurEffect: "systemMaterial",
+          }}
+        >
+          <Stack.Screen
+            name="Home"
+            component={Home}
+            options={{ headerTitle: "Your Workouts"}}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
     </Provider>
   );
 }
-
-const styles = StyleSheet.create({
-  wrapper: {
-    flex: 1,
-    backgroundColor: "#f0f1f4",
-  },
-  container: {
-    flex: 1,
-    paddingHorizontal: 30,
-  },
-  header: {
-    fontSize: 30,
-    fontWeight: "bold",
-    marginTop: 30,
-    marginBottom: 10,
-  },
-});
