@@ -1,10 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { Duration } from "date-fns";
+import { RootState } from "../../store";
+import { Workout } from "../../types";
 
-const initialState = [
+const initialState: Workout[] = [
   {
     id: 1,
     date: new Date(),
-    duration: 1 * 60 * 60,
+    duration: { hours: 1 },
     exercises: [
       {
         exerciseId: 1,
@@ -12,7 +15,7 @@ const initialState = [
           { order: 1, weight: 30.0, reps: 12 },
           { order: 2, weight: 35.0, reps: 10 },
           { order: 3, weight: 40.0, reps: 8 },
-        ]
+        ],
       },
       {
         exerciseId: 2,
@@ -27,7 +30,7 @@ const initialState = [
   {
     id: 2,
     date: new Date(),
-    duration: 1.2 * 60 * 60,
+    duration: { hours: 1, minutes: 30 },
     exercises: [
       {
         exerciseId: 3,
@@ -36,7 +39,7 @@ const initialState = [
           { order: 2, weight: 80.0, reps: 10 },
           { order: 3, weight: 90.0, reps: 8 },
           { order: 3, weight: 100.0, reps: 3 },
-        ]
+        ],
       },
       {
         exerciseId: 4,
@@ -51,9 +54,11 @@ const initialState = [
 ];
 
 export const workoutSlice = createSlice({
-  name: "workout",
+  name: "workouts",
   initialState,
   reducers: {},
 });
 
-export default workoutSlice.reducer
+export default workoutSlice.reducer;
+
+export const selectAllWorkouts = (state: RootState) => state.workouts;
