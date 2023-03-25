@@ -1,16 +1,12 @@
-import { SafeAreaView, View, Text, StyleSheet } from "react-native";
+import Container from "../ui/Container";
 import WorkoutsList from "../features/workout/WorkoutsList";
 
 const Home = () => {
-  return <WorkoutsList />;
+  return (
+    <Container>
+      <WorkoutsList />
+    </Container>
+  );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#f0f1f4",
-    paddingHorizontal: 30,
-  },
-});
 
 export default Home;

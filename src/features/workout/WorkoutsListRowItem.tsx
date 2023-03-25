@@ -1,39 +1,39 @@
-import { View, Text, StyleSheet } from "react-native";
-import { Feather } from "@expo/vector-icons";
+import { View, Text, StyleSheet, Pressable } from "react-native";
 import { format, formatDuration } from "date-fns";
-import { Workout } from "../../types";
+import { Workout, WorkoutScreenNavigationProp } from "../../types";
+import { useNavigation } from "@react-navigation/native";
+import Card from "../../ui/Card";
+import Label from "../../ui/Label";
 
 interface WorkoutsListRowItemProps {
   workout: Workout;
 }
 
 const WorkoutsListRowItem = ({
-  workout: { date, duration, exercises },
+  workout: { id, date, duration, exercises },
 }: WorkoutsListRowItemProps) => {
+  const navigation = useNavigation<WorkoutScreenNavigationProp>();
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.date}>{format(date, "PPp")}</Text>
-      <View style={styles.info}>
-        <View style={styles.duration}>
-          <Feather name="clock" size={16} color="black" />
-          <Text style={styles.durationText}>{formatDuration(duration)}</Text>
-        </View>
-        <View>
-          <Text>{exercises.length} exercises</Text>
-        </View>
+    <Pressable onPress={() => navigation.navigate("Workout", { id })}>
+      <View style={styles.container}>
+        <Card>
+          <Text style={styles.date}>{format(date, "PPp")}</Text>
+          <View style={styles.info}>
+            <Label icon="clock" title={formatDuration(duration)} />
+            <View>
+              <Text>{exercises.length} exercises</Text>
+            </View>
+          </View>
+        </Card>
       </View>
-    </View>
+    </Pressable>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#fff",
-    paddingVertical: 15,
-    paddingHorizontal: 20,
-    marginVertical: 10,
-    marginHorizontal: 20,
-    borderRadius: 6,
+    marginBottom: 12,
   },
   date: {
     fontSize: 16,
