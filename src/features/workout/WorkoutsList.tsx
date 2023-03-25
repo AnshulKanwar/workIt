@@ -9,7 +9,6 @@ const WorkoutsList = () => {
   return (
     <FlatList
       data={workouts}
-      contentInsetAdjustmentBehavior="automatic"
       renderItem={({ item }) => <WorkoutsListRowItem workout={item} />}
     />
   );

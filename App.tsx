@@ -1,27 +1,24 @@
 import { Provider } from "react-redux";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import store from "./src/store";
 import { NavigationContainer } from "@react-navigation/native";
+import store from "./src/store";
+import { RootStackParamList } from "./src/types";
 import Home from "./src/screens/Home";
+import Workout from "./src/screens/Workout";
 
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export default function App() {
   return (
     <Provider store={store}>
       <NavigationContainer>
-        <Stack.Navigator
-          screenOptions={{
-            headerLargeTitle: true,
-            headerTransparent: true,
-            headerBlurEffect: "systemMaterial",
-          }}
-        >
+        <Stack.Navigator>
           <Stack.Screen
             name="Home"
             component={Home}
-            options={{ headerTitle: "Your Workouts"}}
+            options={{ headerTitle: "Your Workouts" }}
           />
+          <Stack.Screen name="Workout" component={Workout} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>
