@@ -5,10 +5,10 @@ import {
   StyleSheet,
   Modal,
   FlatList,
-  Pressable,
-  Keyboard,
+  ScrollView,
 } from "react-native";
 import { format } from "date-fns";
+import uuid from "react-native-uuid";
 import Button from "../ui/Button";
 import Card from "../ui/Card";
 import Container from "../ui/Container";
@@ -16,10 +16,14 @@ import Label from "../ui/Label";
 import ExerciseList from "../features/workout/ExerciseList";
 import EditExercise from "../features/workout/EditExercise";
 import { Exercise } from "../types";
+import { useDispatch } from "react-redux";
+import { addWorkout } from "../features/workout/workoutSlice";
 
 const NewWorkout = () => {
   const [exercises, setExercises] = useState<Exercise[]>([]);
   const [isExerciseListVisible, setIsExerciseListVisible] = useState(false);
+
+  const dispatch = useDispatch();
 
   const handleAddExercise = (exerciseId: number) => {
     setExercises((prev) => [{ id: exerciseId, sets: [] }, ...prev]);
@@ -40,8 +44,19 @@ const NewWorkout = () => {
     setExercises(state);
   };
 
+  const saveWorkout = () => {
+    dispatch(
+      addWorkout({
+        id: uuid.v4() as string,
+        date: Date(),
+        duration: {},
+        exercises,
+      })
+    );
+  };
+
   return (
-    <Pressable onPress={() => Keyboard.dismiss()}>
+    <ScrollView>
       <Container>
         <Card>
           <Text style={styles.titleText}>{format(new Date(), "PPp")}</Text>
@@ -58,11 +73,15 @@ const NewWorkout = () => {
         </Card>
 
         <View style={styles.exercises}>
+          <Button onPress={saveWorkout}>
+            <Label icon="save" title="Save Workout" color="#fff" />
+          </Button>
           <Button onPress={() => setIsExerciseListVisible(true)}>
             <Label icon="plus-circle" title="Add Exercise" color="#fff" />
           </Button>
           <FlatList
             data={exercises}
+            nestedScrollEnabled={true}
             renderItem={({ item }) => (
               <EditExercise exercise={item} handleAddSet={handleAddSet} />
             )}
@@ -80,7 +99,7 @@ const NewWorkout = () => {
           </View>
         </Modal>
       </Container>
-    </Pressable>
+    </ScrollView>
   );
 };
 

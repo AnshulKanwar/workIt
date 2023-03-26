@@ -2,7 +2,7 @@ import { View, Text, StyleSheet } from "react-native";
 import { Feather } from "@expo/vector-icons";
 
 interface LabelProps {
-  icon: keyof typeof Feather.glyphMap;
+  icon?: keyof typeof Feather.glyphMap;
   title: string;
   color?: string;
 }
@@ -10,7 +10,7 @@ interface LabelProps {
 const Label = ({ icon, title, color }: LabelProps) => {
   return (
     <View style={styles.container}>
-      <Feather name={icon} size={16} color={color ?? "black"} />
+      {icon && <Feather name={icon} size={16} color={color ?? "black"} />}
       <Text style={{ color }}>{title}</Text>
     </View>
   );

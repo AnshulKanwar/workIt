@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   addSetButton: {
-    paddingVertical: 6,
+    paddingVertical: 8,
   },
   setsList: {
     marginTop: 8,
