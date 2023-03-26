@@ -27,7 +27,9 @@ const Workout = ({ route }: WorkoutProps) => {
           <Label icon="clock" title={formatDuration(duration)} />
         </Card>
         <View>
-          <Text style={styles.numExercisesText}>{exercises.length} exercises</Text>
+          <Text style={styles.numExercisesText}>
+            {exercises.length} exercises
+          </Text>
           <FlatList
             data={exercises}
             renderItem={({ item }) => <Exercise exercise={item} />}
@@ -53,7 +55,7 @@ const styles = StyleSheet.create({
   numExercisesText: {
     color: "#71717a",
     marginBottom: 4,
-  }
+  },
 });
 
 export default Workout;

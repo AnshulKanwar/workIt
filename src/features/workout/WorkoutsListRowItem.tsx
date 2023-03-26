@@ -16,17 +16,15 @@ const WorkoutsListRowItem = ({
 
   return (
     <Pressable onPress={() => navigation.navigate("Workout", { id })}>
-      <View style={styles.container}>
-        <Card>
-          <Text style={styles.date}>{format(date, "PPp")}</Text>
-          <View style={styles.info}>
-            <Label icon="clock" title={formatDuration(duration)} />
-            <View>
-              <Text>{exercises.length} exercises</Text>
-            </View>
+      <Card style={styles.container}>
+        <Text style={styles.date}>{format(date, "PPp")}</Text>
+        <View style={styles.info}>
+          <Label icon="clock" title={formatDuration(duration)} />
+          <View>
+            <Text>{exercises.length} exercises</Text>
           </View>
-        </Card>
-      </View>
+        </View>
+      </Card>
     </Pressable>
   );
 };
