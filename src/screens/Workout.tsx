@@ -2,12 +2,12 @@ import { View, Text, StyleSheet, FlatList } from "react-native";
 import { useSelector } from "react-redux";
 import { format, formatDuration } from "date-fns";
 import { selectWorkout } from "../features/workout/workoutSlice";
-import { RootState } from "../store";
+import { RootState } from "../app/store";
 import { WorkoutScreenRouteProp } from "../types";
 import Card from "../ui/Card";
 import Container from "../ui/Container";
 import Label from "../ui/Label";
-import Exercise from "../components/Exercise";
+import Exercise from "../features/workout/Exercise";
 
 interface WorkoutProps {
   route: WorkoutScreenRouteProp;

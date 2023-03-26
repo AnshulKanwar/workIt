@@ -1,8 +1,8 @@
 import { StyleSheet } from "react-native";
 import { View, Text, FlatList } from "react-native";
-import { Exercise as TExercise } from "../types";
-import { getExercise } from "../utils";
-import Card from "../ui/Card";
+import { Exercise as TExercise } from "../../types";
+import { getExercise } from "../../utils";
+import Card from "../../ui/Card";
 
 interface ExerciseProps {
   exercise: TExercise;
