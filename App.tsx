@@ -5,6 +5,7 @@ import store from "./src/app/store";
 import { RootStackParamList } from "./src/types";
 import Home from "./src/screens/Home";
 import Workout from "./src/screens/Workout";
+import AddWorkout from "./src/features/workout/AddWorkout";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -19,6 +20,7 @@ export default function App() {
             options={{ headerTitle: "Your Workouts" }}
           />
           <Stack.Screen name="Workout" component={Workout} />
+          <Stack.Screen name="Add Workout" component={AddWorkout} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>

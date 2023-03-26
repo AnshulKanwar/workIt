@@ -2,12 +2,12 @@ import { RouteProp } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 export interface Exercise {
-  id: number,
+  id: number;
   sets: {
     order: number;
     weight: number;
     reps: number;
-  }[]
+  }[];
 }
 
 export interface Workout {
@@ -18,9 +18,23 @@ export interface Workout {
 }
 
 export type RootStackParamList = {
-  Home: undefined,
-  Workout: { id: number }
-}
+  Home: undefined;
+  Workout: { id: number };
+  "Add Workout": undefined;
+};
 
-export type WorkoutScreenRouteProp = RouteProp<RootStackParamList, 'Workout'>
-export type WorkoutScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Workout'>
+export type HomeScreenNavigationProp = NativeStackNavigationProp<
+  RootStackParamList,
+  "Home"
+>;
+
+export type WorkoutScreenRouteProp = RouteProp<RootStackParamList, "Workout">;
+export type WorkoutScreenNavigationProp = NativeStackNavigationProp<
+  RootStackParamList,
+  "Workout"
+>;
+
+export type AddWorkoutNavigationProp = NativeStackNavigationProp<
+  RootStackParamList,
+  "Add Workout"
+>;
