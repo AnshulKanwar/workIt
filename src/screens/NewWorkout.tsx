@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { View, Text, StyleSheet, Modal, ScrollView } from "react-native";
+import { View, Text, StyleSheet, Modal } from "react-native";
 import { format } from "date-fns";
 import uuid from "react-native-uuid";
 import Button from "../ui/Button";
@@ -8,19 +8,23 @@ import Container from "../ui/Container";
 import Label from "../ui/Label";
 import ExerciseList from "../features/workout/ExerciseList";
 import EditExercise from "../features/workout/EditExercise";
-import { Exercise } from "../types";
+import { Exercise, NewWorkoutNavigationProp } from "../types";
 import { useDispatch } from "react-redux";
 import { addWorkout } from "../features/workout/workoutSlice";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
-const NewWorkout = () => {
+interface NewWorkoutProps {
+  navigation: NewWorkoutNavigationProp
+}
+
+const NewWorkout = ({ navigation }: NewWorkoutProps) => {
   const [exercises, setExercises] = useState<Exercise[]>([]);
   const [isExerciseListVisible, setIsExerciseListVisible] = useState(false);
 
   const dispatch = useDispatch();
 
   const handleAddExercise = (exerciseId: number) => {
-    setExercises((prev) => [{ id: exerciseId, sets: [] }, ...prev]);
+    setExercises((prev) => [...prev, { id: exerciseId, sets: [] }]);
     setIsExerciseListVisible(false);
   };
 
@@ -47,11 +51,13 @@ const NewWorkout = () => {
         exercises,
       })
     );
+    
+    navigation.navigate("Home")
   };
 
   return (
     <KeyboardAwareScrollView extraHeight={200}>
-      <Container>
+      <Container style={styles.container}>
         <Card>
           <Text style={styles.titleText}>{format(new Date(), "PPp")}</Text>
           <View style={styles.info}>
@@ -66,13 +72,11 @@ const NewWorkout = () => {
           </View>
         </Card>
 
+        <Button onPress={saveWorkout}>
+          <Label icon="save" title="Save Workout" color="#fff" />
+        </Button>
+
         <View style={styles.exercises}>
-          <Button onPress={saveWorkout}>
-            <Label icon="save" title="Save Workout" color="#fff" />
-          </Button>
-          <Button onPress={() => setIsExerciseListVisible(true)}>
-            <Label icon="plus-circle" title="Add Exercise" color="#fff" />
-          </Button>
           {exercises.map((exercise) => (
             <EditExercise
               key={exercise.id}
@@ -80,6 +84,9 @@ const NewWorkout = () => {
               handleAddSet={handleAddSet}
             />
           ))}
+          <Button onPress={() => setIsExerciseListVisible(true)}>
+            <Label icon="plus-circle" title="Add Exercise" color="#fff" />
+          </Button>
         </View>
         <Modal
           visible={isExerciseListVisible}
@@ -98,6 +105,9 @@ const NewWorkout = () => {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    gap: 25
+  },
   titleText: {
     fontSize: 20,
     fontWeight: "bold",
@@ -108,7 +118,6 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   exercises: {
-    marginTop: 30,
     gap: 12,
   },
   exerciseList: {

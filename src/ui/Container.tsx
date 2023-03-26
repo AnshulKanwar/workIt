@@ -1,12 +1,13 @@
 import { ReactNode } from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, StyleProp, ViewStyle } from "react-native";
 
 interface ContainerProps {
+  style?: StyleProp<ViewStyle>
   children: ReactNode;
 }
 
-const Container = ({ children }: ContainerProps) => {
-  return <View style={styles.container}>{children}</View>;
+const Container = ({ style, children }: ContainerProps) => {
+  return <View style={[styles.container, style]}>{children}</View>;
 };
 
 const styles = StyleSheet.create({

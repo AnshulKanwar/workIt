@@ -14,43 +14,37 @@ interface ExerciseProps {
 
 const Exercise = ({ exercise: { id, sets }, handleAddSet }: ExerciseProps) => {
   return (
-    <View style={styles.container}>
-      <Card>
-        <Text style={styles.exerciseText}>{getExercise(id)}</Text>
-        <Button
-          onPress={() => {
-            let order = sets[sets.length - 1]?.order;
-            order = order ? order + 1 : 1;
-            handleAddSet(id, order);
-          }}
-          buttonStyle={styles.addSetButton}
-        >
-          <Label icon="plus-circle" title="Add Set" color="#fff" />
-        </Button>
-        <View style={styles.setsList}>
-          {sets.map((set) => (
-            <Set key={set.order} set={set} />
-          ))}
-        </View>
-      </Card>
-    </View>
+    <Card style={styles.exercise}>
+      <Text style={styles.exerciseText}>{getExercise(id)}</Text>
+      <View>
+        {sets.map((set) => (
+          <Set key={set.order} set={set} />
+        ))}
+      </View>
+      <Button
+        onPress={() => {
+          let order = sets[sets.length - 1]?.order;
+          order = order ? order + 1 : 1;
+          handleAddSet(id, order);
+        }}
+        buttonStyle={styles.addSetButton}
+      >
+        <Label icon="plus-circle" title="Add Set" color="#fff" />
+      </Button>
+    </Card>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    marginBottom: 12,
+  exercise: {
+    gap: 10,
   },
   exerciseText: {
     fontSize: 20,
     fontWeight: "500",
-    marginBottom: 8,
   },
   addSetButton: {
     paddingVertical: 8,
-  },
-  setsList: {
-    marginTop: 8,
   },
 });
 

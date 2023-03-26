@@ -40,3 +40,7 @@ export type NewWorkoutScreenRouteProp = RouteProp<
   RootStackParamList,
   "New Workout"
 >;
+export type NewWorkoutNavigationProp = NativeStackNavigationProp<
+  RootStackParamList,
+  "New Workout"
+>;
