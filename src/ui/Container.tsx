@@ -12,7 +12,7 @@ const Container = ({ children }: ContainerProps) => {
 const styles = StyleSheet.create({
   container: {
     marginHorizontal: 20,
-    marginTop: 30,
+    marginVertical: 30,
   },
 });
 

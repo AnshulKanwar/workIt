@@ -1,11 +1,5 @@
 import { useState } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  Modal,
-  ScrollView,
-} from "react-native";
+import { View, Text, StyleSheet, Modal, ScrollView } from "react-native";
 import { format } from "date-fns";
 import uuid from "react-native-uuid";
 import Button from "../ui/Button";
@@ -17,6 +11,7 @@ import EditExercise from "../features/workout/EditExercise";
 import { Exercise } from "../types";
 import { useDispatch } from "react-redux";
 import { addWorkout } from "../features/workout/workoutSlice";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 const NewWorkout = () => {
   const [exercises, setExercises] = useState<Exercise[]>([]);
@@ -55,7 +50,7 @@ const NewWorkout = () => {
   };
 
   return (
-    <ScrollView>
+    <KeyboardAwareScrollView extraHeight={200}>
       <Container>
         <Card>
           <Text style={styles.titleText}>{format(new Date(), "PPp")}</Text>
@@ -79,7 +74,11 @@ const NewWorkout = () => {
             <Label icon="plus-circle" title="Add Exercise" color="#fff" />
           </Button>
           {exercises.map((exercise) => (
-            <EditExercise key={exercise.id} exercise={exercise} handleAddSet={handleAddSet} />
+            <EditExercise
+              key={exercise.id}
+              exercise={exercise}
+              handleAddSet={handleAddSet}
+            />
           ))}
         </View>
         <Modal
@@ -94,7 +93,7 @@ const NewWorkout = () => {
           </View>
         </Modal>
       </Container>
-    </ScrollView>
+    </KeyboardAwareScrollView>
   );
 };
 
