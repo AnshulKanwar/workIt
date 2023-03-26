@@ -1,13 +1,19 @@
-import { FlatList, View, Text, StyleSheet } from "react-native";
+import { FlatList, View, Text, StyleSheet, Pressable } from "react-native";
 import exercises from "../../exercises.json";
 
-const ExerciseList = () => {
+interface ExerciseListProps {
+  handlePress: (exerciseId: number) => void
+}
+
+const ExerciseList = ({ handlePress }: ExerciseListProps) => {
   return (
     <View style={styles.container}>
       <FlatList
         data={exercises}
-        renderItem={({ item: { name } }) => (
-          <Text style={styles.listItem}>{name}</Text>
+        renderItem={({ item: { id, name } }) => (
+          <Pressable onPress={() => handlePress(id)}>
+            <Text style={styles.listItem}>{name}</Text>
+          </Pressable>
         )}
         ItemSeparatorComponent={() => <View style={styles.separator}></View>}
       />
@@ -18,7 +24,7 @@ const ExerciseList = () => {
 const styles = StyleSheet.create({
   container: {
     borderRadius: 10,
-    overflow: "hidden"
+    overflow: "hidden",
   },
   listItem: {
     backgroundColor: "#f4f4f5",

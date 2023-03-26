@@ -17,7 +17,7 @@ const WorkoutsListRowItem = ({
   return (
     <Pressable onPress={() => navigation.navigate("Workout", { id })}>
       <Card style={styles.container}>
-        <Text style={styles.date}>{format(date, "PPp")}</Text>
+        <Text style={styles.date}>{format(new Date(date), "PPp")}</Text>
         <View style={styles.info}>
           <Label icon="clock" title={formatDuration(duration)} />
           <View>

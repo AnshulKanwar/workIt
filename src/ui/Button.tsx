@@ -1,14 +1,15 @@
 import { ReactNode } from "react";
-import { Pressable, StyleSheet } from "react-native";
+import { Pressable, StyleSheet, StyleProp, ViewStyle } from "react-native";
 
 interface ButtonProps {
   onPress?: () => void;
+  buttonStyle?: StyleProp<ViewStyle>;
   children: ReactNode;
 }
 
-const Button = ({ onPress, children }: ButtonProps) => {
+const Button = ({ onPress, buttonStyle, children }: ButtonProps) => {
   return (
-    <Pressable style={styles.button} onPress={onPress}>
+    <Pressable style={[styles.button, buttonStyle]} onPress={onPress}>
       {children}
     </Pressable>
   );

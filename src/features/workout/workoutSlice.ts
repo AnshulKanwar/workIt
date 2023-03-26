@@ -1,11 +1,12 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import uuid from "react-native-uuid";
 import { RootState } from "../../app/store";
 import { Workout } from "../../types";
 
 const initialState: Workout[] = [
   {
-    id: 1,
-    date: new Date(),
+    id: uuid.v4() as string,
+    date: Date(),
     duration: { hours: 1 },
     exercises: [
       {
@@ -27,8 +28,8 @@ const initialState: Workout[] = [
     ],
   },
   {
-    id: 2,
-    date: new Date(),
+    id: uuid.v4() as string,
+    date: Date(),
     duration: { hours: 1, minutes: 30 },
     exercises: [
       {
@@ -55,12 +56,40 @@ const initialState: Workout[] = [
 export const workoutSlice = createSlice({
   name: "workouts",
   initialState,
-  reducers: {},
+  reducers: {
+    addWorkout(state, action: PayloadAction<Workout>) {
+      state.push(action.payload);
+    },
+    // addExercise(
+    //   state,
+    //   action: PayloadAction<{ workoutId: string; exercise: Exercise }>
+    // ) {
+    //   const { workoutId, exercise } = action.payload;
+    //   const workout = state.find((workout) => workout.id === workoutId);
+    //   if (workout) {
+    //     workout.exercises.push(exercise);
+    //   }
+    // },
+    // addSet(
+    //   state,
+    //   action: PayloadAction<{ workoutId: string; exerciseId: number; set: Set }>
+    // ) {
+    //   const { workoutId, exerciseId, set } = action.payload;
+    //   const workout = state.find((workout) => workout.id === workoutId);
+    //   const exercise = workout.exercises.find(
+    //     (exercise) => exercise.id === exerciseId
+    //   );
+    //   exercise.sets.push(set);
+    // },
+  },
 });
+
+export const { addWorkout } = workoutSlice.actions;
 
 export default workoutSlice.reducer;
 
 export const selectAllWorkouts = (state: RootState) => state.workouts;
 
-export const selectWorkout = (state: RootState, id: number) =>
+// TODO: Error handling
+export const selectWorkout = (state: RootState, id: string) =>
   state.workouts.find((workout) => workout.id === id);

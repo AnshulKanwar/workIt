@@ -17,13 +17,17 @@ const Workout = ({ route }: WorkoutProps) => {
   const { id } = route.params;
 
   const workout = useSelector((state: RootState) => selectWorkout(state, id));
+  if (!workout) {
+    console.error(`Workout with id ${id} not found`)
+    return <Text>An error occured</Text>
+  }
   const { date, duration, exercises } = workout;
 
   return (
     <Container>
       <View style={styles.container}>
         <Card>
-          <Text style={styles.dateText}>{format(date, "PPp")}</Text>
+          <Text style={styles.dateText}>{format(new Date(date), "PPp")}</Text>
           <Label icon="clock" title={formatDuration(duration)} />
         </Card>
         <View>

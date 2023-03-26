@@ -12,7 +12,7 @@ const Exercise = ({ exercise: { id, sets } }: ExerciseProps) => {
   return (
     <View style={styles.container}>
       <Card>
-        <Text style={styles.exerciseText}>{getExercise(id)}</Text>
+        <Text style={styles.exerciseText}>{getExercise(id) ?? "Unknown exercise"}</Text>
         <FlatList
           data={sets}
           renderItem={({ item: { order, weight, reps } }) => (

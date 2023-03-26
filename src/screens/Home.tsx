@@ -12,7 +12,7 @@ interface HomeProps {
 const Home = ({ navigation }: HomeProps) => {
   return (
     <Container>
-      <Button onPress={() => navigation.navigate("Add Workout")}>
+      <Button onPress={() => navigation.navigate("New Workout")}>
         <Label icon="plus-circle" title="New Workout" color="#fff" />
       </Button>
       <View style={styles.workoutList}>
