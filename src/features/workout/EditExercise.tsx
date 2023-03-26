@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { View, Text, FlatList } from "react-native";
+import { View, Text } from "react-native";
 import { getExercise } from "../../utils";
 import Card from "../../ui/Card";
 import Button from "../../ui/Button";
@@ -28,7 +28,9 @@ const Exercise = ({ exercise: { id, sets }, handleAddSet }: ExerciseProps) => {
           <Label icon="plus-circle" title="Add Set" color="#fff" />
         </Button>
         <View style={styles.setsList}>
-          <FlatList data={sets} renderItem={({ item }) => <Set set={item} />} />
+          {sets.map((set) => (
+            <Set key={set.order} set={set} />
+          ))}
         </View>
       </Card>
     </View>

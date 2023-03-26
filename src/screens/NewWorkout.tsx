@@ -4,7 +4,6 @@ import {
   Text,
   StyleSheet,
   Modal,
-  FlatList,
   ScrollView,
 } from "react-native";
 import { format } from "date-fns";
@@ -79,13 +78,9 @@ const NewWorkout = () => {
           <Button onPress={() => setIsExerciseListVisible(true)}>
             <Label icon="plus-circle" title="Add Exercise" color="#fff" />
           </Button>
-          <FlatList
-            data={exercises}
-            nestedScrollEnabled={true}
-            renderItem={({ item }) => (
-              <EditExercise exercise={item} handleAddSet={handleAddSet} />
-            )}
-          />
+          {exercises.map((exercise) => (
+            <EditExercise key={exercise.id} exercise={exercise} handleAddSet={handleAddSet} />
+          ))}
         </View>
         <Modal
           visible={isExerciseListVisible}
