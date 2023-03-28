@@ -39,7 +39,7 @@ const initialState: Workout[] = [
           { order: 1, weight: 70.0, reps: 12 },
           { order: 2, weight: 80.0, reps: 10 },
           { order: 3, weight: 90.0, reps: 8 },
-          { order: 3, weight: 100.0, reps: 3 },
+          { order: 4, weight: 100.0, reps: 3 },
         ],
       },
       {
