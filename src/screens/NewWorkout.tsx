@@ -42,6 +42,32 @@ const NewWorkout = ({ navigation }: NewWorkoutProps) => {
     setExercises(state);
   };
 
+  const handleChangeWeight = (exerciseId: number, order: number, weight: string) => {
+    let state = [...exercises]
+    state.map(exercise => {
+      if (exercise.id === exerciseId) {
+        exercise.sets[order - 1].weight = Number(weight)
+      } else {
+        return exercise
+      }
+    })
+
+    setExercises(state)
+  }
+
+  const handleChangeReps = (exerciseId: number, order: number, reps: string) => {
+    let state = [...exercises]
+    state.map(exercise => {
+      if (exercise.id === exerciseId) {
+        exercise.sets[order - 1].reps = Number(reps)
+      } else {
+        return exercise
+      }
+    })
+
+    setExercises(state)
+  }
+
   const saveWorkout = () => {
     dispatch(
       addWorkout({
@@ -82,6 +108,8 @@ const NewWorkout = ({ navigation }: NewWorkoutProps) => {
               key={exercise.id}
               exercise={exercise}
               handleAddSet={handleAddSet}
+              handleChangeWeight={handleChangeWeight}
+              handleChangeReps={handleChangeReps}
             />
           ))}
           <Button onPress={() => setIsExerciseListVisible(true)}>

@@ -1,16 +1,14 @@
 import { View, Text, TextInput, StyleSheet } from "react-native";
 import { Feather } from "@expo/vector-icons";
-import { useState } from "react";
 import { Set as TSet } from "../../types";
 
 interface SetProps {
   set: TSet;
+  handleChangeWeight: (order: number, s: string) => void;
+  handleChangeReps: (order: number, s: string) => void;
 }
 
-const Set = ({ set }: SetProps) => {
-  const [weight, setWeight] = useState(`${set.weight}`);
-  const [reps, setReps] = useState(`${set.reps}`);
-
+const Set = ({ set, handleChangeWeight, handleChangeReps }: SetProps) => {
   return (
     <View style={styles.set}>
       <Text>{set.order}</Text>
@@ -18,8 +16,8 @@ const Set = ({ set }: SetProps) => {
         <TextInput
           style={styles.inputField}
           placeholder="0"
-          value={`${weight}`}
-          onChangeText={setWeight}
+          value={`${set.weight}`}
+          onChangeText={(s) => handleChangeWeight(set.order, s)}
           keyboardType="number-pad"
         />
         <Text>Kg</Text>
@@ -28,8 +26,8 @@ const Set = ({ set }: SetProps) => {
       <TextInput
         style={styles.inputField}
         placeholder="0"
-        value={`${reps}`}
-        onChangeText={setReps}
+        value={`${set.reps}`}
+        onChangeText={(s) => handleChangeReps(set.order, s)}
         keyboardType="number-pad"
       />
     </View>

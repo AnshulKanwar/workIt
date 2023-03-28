@@ -10,15 +10,27 @@ import { Exercise as TExercise } from "../../types";
 interface ExerciseProps {
   exercise: TExercise;
   handleAddSet: (exerciseId: number, order: number) => void;
+  handleChangeWeight: (id: number, order: number, s: string) => void;
+  handleChangeReps: (id: number, order: number, s: string) => void;
 }
 
-const Exercise = ({ exercise: { id, sets }, handleAddSet }: ExerciseProps) => {
+const Exercise = ({
+  exercise: { id, sets },
+  handleAddSet,
+  handleChangeWeight,
+  handleChangeReps,
+}: ExerciseProps) => {
   return (
     <Card style={styles.exercise}>
       <Text style={styles.exerciseText}>{getExercise(id)}</Text>
       <View>
         {sets.map((set) => (
-          <Set key={set.order} set={set} />
+          <Set
+            key={set.order}
+            set={set}
+            handleChangeWeight={(order, s) => handleChangeWeight(id, order, s)}
+            handleChangeReps={(order, s) => handleChangeReps(id, order, s)}
+          />
         ))}
       </View>
       <Button
