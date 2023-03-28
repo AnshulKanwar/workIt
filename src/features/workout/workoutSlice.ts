@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { compareDesc } from "date-fns";
 import uuid from "react-native-uuid";
 import { RootState } from "../../app/store";
 import { Workout } from "../../types";
@@ -60,27 +61,6 @@ export const workoutSlice = createSlice({
     addWorkout(state, action: PayloadAction<Workout>) {
       state.push(action.payload);
     },
-    // addExercise(
-    //   state,
-    //   action: PayloadAction<{ workoutId: string; exercise: Exercise }>
-    // ) {
-    //   const { workoutId, exercise } = action.payload;
-    //   const workout = state.find((workout) => workout.id === workoutId);
-    //   if (workout) {
-    //     workout.exercises.push(exercise);
-    //   }
-    // },
-    // addSet(
-    //   state,
-    //   action: PayloadAction<{ workoutId: string; exerciseId: number; set: Set }>
-    // ) {
-    //   const { workoutId, exerciseId, set } = action.payload;
-    //   const workout = state.find((workout) => workout.id === workoutId);
-    //   const exercise = workout.exercises.find(
-    //     (exercise) => exercise.id === exerciseId
-    //   );
-    //   exercise.sets.push(set);
-    // },
   },
 });
 
@@ -88,7 +68,10 @@ export const { addWorkout } = workoutSlice.actions;
 
 export default workoutSlice.reducer;
 
-export const selectAllWorkouts = (state: RootState) => state.workouts;
+export const selectAllWorkouts = (state: RootState) =>
+  state.workouts.slice().sort((a, b) =>
+    compareDesc(new Date(a.date), new Date(b.date))
+  );
 
 // TODO: Error handling
 export const selectWorkout = (state: RootState, id: string) =>
