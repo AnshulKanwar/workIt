@@ -9,6 +9,7 @@ interface ExerciseProps {
   exercise: TExercise;
 }
 
+// TODO: Refactor
 const Exercise = ({ exercise: { id, sets } }: ExerciseProps) => {
   return (
     <View style={styles.container}>
