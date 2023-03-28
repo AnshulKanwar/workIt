@@ -12,14 +12,16 @@ import { Exercise, NewWorkoutNavigationProp } from "../types";
 import { useDispatch } from "react-redux";
 import { addWorkout } from "../features/workout/workoutSlice";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import Duration from "../features/workout/Duration";
 
 interface NewWorkoutProps {
-  navigation: NewWorkoutNavigationProp
+  navigation: NewWorkoutNavigationProp;
 }
 
 const NewWorkout = ({ navigation }: NewWorkoutProps) => {
   const [exercises, setExercises] = useState<Exercise[]>([]);
   const [isExerciseListVisible, setIsExerciseListVisible] = useState(false);
+  const [duration, setDuration] = useState(0);
 
   const dispatch = useDispatch();
 
@@ -42,43 +44,51 @@ const NewWorkout = ({ navigation }: NewWorkoutProps) => {
     setExercises(state);
   };
 
-  const handleChangeWeight = (exerciseId: number, order: number, weight: string) => {
-    let state = [...exercises]
-    state.map(exercise => {
+  const handleChangeWeight = (
+    exerciseId: number,
+    order: number,
+    weight: string
+  ) => {
+    let state = [...exercises];
+    state.map((exercise) => {
       if (exercise.id === exerciseId) {
-        exercise.sets[order - 1].weight = Number(weight)
+        exercise.sets[order - 1].weight = Number(weight);
       } else {
-        return exercise
+        return exercise;
       }
-    })
+    });
 
-    setExercises(state)
-  }
+    setExercises(state);
+  };
 
-  const handleChangeReps = (exerciseId: number, order: number, reps: string) => {
-    let state = [...exercises]
-    state.map(exercise => {
+  const handleChangeReps = (
+    exerciseId: number,
+    order: number,
+    reps: string
+  ) => {
+    let state = [...exercises];
+    state.map((exercise) => {
       if (exercise.id === exerciseId) {
-        exercise.sets[order - 1].reps = Number(reps)
+        exercise.sets[order - 1].reps = Number(reps);
       } else {
-        return exercise
+        return exercise;
       }
-    })
+    });
 
-    setExercises(state)
-  }
+    setExercises(state);
+  };
 
   const saveWorkout = () => {
     dispatch(
       addWorkout({
         id: uuid.v4() as string,
         date: Date(),
-        duration: {},
+        duration: { seconds: duration },
         exercises,
       })
     );
-    
-    navigation.navigate("Home")
+
+    navigation.navigate("Home");
   };
 
   return (
@@ -89,7 +99,10 @@ const NewWorkout = ({ navigation }: NewWorkoutProps) => {
           <View style={styles.info}>
             <View>
               <Text>Duration</Text>
-              <Text>00:00</Text>
+              <Duration
+                time={duration}
+                handleUpdate={() => setDuration((prev) => prev + 1)}
+              />
             </View>
             <View>
               <Text>Exercises</Text>
@@ -134,7 +147,7 @@ const NewWorkout = ({ navigation }: NewWorkoutProps) => {
 
 const styles = StyleSheet.create({
   container: {
-    gap: 25
+    gap: 25,
   },
   titleText: {
     fontSize: 20,
