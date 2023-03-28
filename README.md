@@ -13,3 +13,4 @@ An app to log your gym workouts
 - [ ] dark mode
 - [ ] make it DRY
 - [ ] duration stopwatch
+- [ ] visualize
